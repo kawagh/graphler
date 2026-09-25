@@ -49,7 +49,7 @@ tasks:
   release:
     desc: release next version
     summary: |
-      packages/cli のバージョンを上げてタグを付け、npm に公開する
+      packages/cli のバージョンを上げ、CHANGELOG.md を生成してタグを付け、npm に公開する
       公開時にブラウザでのセキュリティキー認証が必要なので、手元で実行する
     prompt: リリースしますか?
     cmds:
@@ -59,7 +59,9 @@ tasks:
       - git diff --quiet # 未ステージ
       - git diff --cached --quiet # 未コミット
       - pnpm --filter @kawagh/graphler exec npm version patch --no-git-tag-version
-      - git add packages/cli/package.json
+      # 版上げ後に回すと Unreleased が新版の見出しになる
+      - pnpm exec git-cliff --tag "$(jq -r .version packages/cli/package.json)" -o CHANGELOG.md
+      - git add packages/cli/package.json CHANGELOG.md
       - git commit -m "version $(jq -r .version packages/cli/package.json)"
       - git tag "$(jq -r .version packages/cli/package.json)"
       - git push

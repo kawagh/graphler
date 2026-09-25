@@ -23,6 +23,10 @@ task        # タスクの一覧を表示する
 task check  # 書式・リント・型チェック・テストをまとめて実行する
 ```
 
+## Changelog
+
+[CHANGELOG.md](./CHANGELOG.md)
+
 ## License
 
 MIT
