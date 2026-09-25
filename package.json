@@ -12,6 +12,7 @@
     "format:check": "oxfmt --check"
   },
   "devDependencies": {
+    "git-cliff": "^2.14.2",
     "oxfmt": "^0.70.0"
   },
   "packageManager": "pnpm@10.20.0"
