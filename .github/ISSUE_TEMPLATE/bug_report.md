@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Report a problem to help me improve
-title: ''
+title: ""
 labels: bug
-assignees: ''
-
+assignees: ""
 ---
 
 ## What happened? / 何が起きたか?

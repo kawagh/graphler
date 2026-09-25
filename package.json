@@ -9,7 +9,11 @@
   "scripts": {
     "build": "pnpm -r build",
     "format": "oxfmt",
-    "format:check": "oxfmt --check"
+    "format:check": "oxfmt --check",
+    "dev": "pnpm --filter @graphler/viewer dev",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
   },
   "devDependencies": {
     "git-cliff": "^2.14.2",
