@@ -3,35 +3,32 @@
   "version": "0.1.0",
   "description": "Tool to visualize code dependencies as an interactive graph.",
   "keywords": [
+    "architecture",
+    "cli",
     "dependencies",
     "dependency-graph",
-    "architecture",
-    "visualization",
-    "cli"
+    "visualization"
   ],
   "homepage": "https://github.com/kawagh/graphler#readme",
   "bugs": {
     "url": "https://github.com/kawagh/graphler/issues"
   },
+  "license": "MIT",
+  "author": "kawagh",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kawagh/graphler.git",
     "directory": "packages/cli"
   },
-  "license": "MIT",
-  "author": "kawagh",
-  "type": "module",
   "bin": {
     "graphler": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
+  "type": "module",
   "publishConfig": {
     "access": "public"
-  },
-  "engines": {
-    "node": ">=22"
   },
   "scripts": {
     "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json && node -e \"require('node:fs').cpSync('../viewer/dist','dist/viewer',{recursive:true})\"",
@@ -39,7 +36,6 @@
     "prepack": "pnpm -w run build && node -e \"const fs=require('node:fs');fs.copyFileSync('../../LICENSE','LICENSE');fs.copyFileSync('../../README.md','README.md')\"",
     "test": "node --test \"test/**/*.test.ts\""
   },
-  "packageManager": "pnpm@10.20.0",
   "dependencies": {
     "dependency-cruiser": "^18.4.0",
     "typescript": "catalog:"
@@ -48,5 +44,9 @@
     "@graphler/schema": "workspace:*",
     "@graphler/viewer": "workspace:*",
     "@types/node": "^24.13.6"
-  }
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.20.0"
 }

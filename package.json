@@ -1,13 +1,18 @@
 {
   "name": "graphler-monorepo",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "scripts": {
-    "build": "pnpm -r build"
-  },
   "keywords": [],
-  "author": "",
   "license": "MIT",
+  "author": "",
+  "scripts": {
+    "build": "pnpm -r build",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.70.0"
+  },
   "packageManager": "pnpm@10.20.0"
 }

@@ -46,7 +46,9 @@ export function serve(data: GraphlerData, port: number, open: boolean): void {
       res.end("Not Found");
       return;
     }
-    res.writeHead(200, { "Content-Type": CONTENT_TYPES[extname(file)] ?? "application/octet-stream" });
+    res.writeHead(200, {
+      "Content-Type": CONTENT_TYPES[extname(file)] ?? "application/octet-stream",
+    });
     res.end(readFileSync(file));
   });
 
