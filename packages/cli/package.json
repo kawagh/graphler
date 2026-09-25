@@ -1,7 +1,25 @@
 {
   "name": "graphler",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Tool to visualize code dependencies as an interactive graph.",
+  "keywords": [
+    "dependencies",
+    "dependency-graph",
+    "architecture",
+    "visualization",
+    "cli"
+  ],
+  "homepage": "https://github.com/kawagh/graphler#readme",
+  "bugs": {
+    "url": "https://github.com/kawagh/graphler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawagh/graphler.git",
+    "directory": "packages/cli"
+  },
+  "license": "MIT",
+  "author": "kawagh",
   "type": "module",
   "bin": {
     "graphler": "./dist/index.js"
@@ -14,11 +32,9 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json && node -e \"require('node:fs').cpSync('../viewer/dist','dist/viewer',{recursive:true})\"",
-    "dev": "node src/index.ts"
+    "dev": "node src/index.ts",
+    "prepack": "pnpm -w run build && node -e \"const fs=require('node:fs');fs.copyFileSync('../../LICENSE','LICENSE');fs.copyFileSync('../../README.md','README.md')\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
     "dependency-cruiser": "^18.4.0",
