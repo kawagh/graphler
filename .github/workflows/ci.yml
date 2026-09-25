@@ -24,6 +24,9 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v6 # バージョンは package.json の packageManager から読む
 
+      - name: Install Task
+        uses: go-task/setup-task@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
@@ -34,13 +37,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm build # viewer の tsc -b と cli の tsc で型チェックも兼ねる
+        run: task build
 
-      - name: Typecheck schema
-        run: pnpm --filter @graphler/schema typecheck
+      # 手元と同じ確認にするため、個別のコマンドではなく task check を呼ぶ
+      - name: Check
+        run: task check
 
-      - name: Lint
-        run: pnpm --filter @graphler/viewer lint
-
-      - name: Test
-        run: pnpm -r test
+      # task check の format で差分が出たら、書式が崩れたままコミットされている
+      - name: Check format
+        run: git diff --exit-code

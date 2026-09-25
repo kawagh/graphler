@@ -1,0 +1,67 @@
+version: "3"
+
+# 実際のコマンドは各パッケージの package.json の scripts に置き、ここからは呼び出すだけにする
+
+tasks:
+  default:
+    desc: list tasks
+    cmds:
+      - task --list-all --sort none
+
+  check:
+    desc: format, lint, typecheck, test
+    cmds:
+      - task: format
+      - task: lint
+      - task: typecheck
+      - task: test
+
+  format:
+    desc: format
+    cmds:
+      - pnpm format
+
+  lint:
+    desc: lint
+    cmds:
+      - pnpm lint
+
+  typecheck:
+    desc: typecheck
+    cmds:
+      - pnpm typecheck
+
+  test:
+    desc: run tests
+    cmds:
+      - pnpm test
+
+  build:
+    desc: build (schema -> viewer -> cli)
+    cmds:
+      - pnpm build
+
+  dev:
+    desc: start viewer dev server
+    cmds:
+      - pnpm dev
+
+  release:
+    desc: release next version
+    summary: |
+      packages/cli のバージョンを上げてタグを付け、npm に公開する
+      公開時にブラウザでのセキュリティキー認証が必要なので、手元で実行する
+    prompt: リリースしますか?
+    cmds:
+      - git switch main
+      - git pull
+      - task: check
+      - git diff --quiet # 未ステージ
+      - git diff --cached --quiet # 未コミット
+      - pnpm --filter @kawagh/graphler exec npm version patch --no-git-tag-version
+      - git add packages/cli/package.json
+      - git commit -m "version $(jq -r .version packages/cli/package.json)"
+      - git tag "$(jq -r .version packages/cli/package.json)"
+      - git push
+      - git push --tags
+      - pnpm --filter @kawagh/graphler publish
