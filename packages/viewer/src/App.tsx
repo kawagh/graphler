@@ -24,57 +24,74 @@ export default function App() {
 
   useEffect(() => {
     if (!data || !containerRef.current) return
-    const graph = new Graph({
-      container: containerRef.current,
-      autoFit: 'view',
-      data: toG6(data),
-      node: {
-        type: 'rect',
-        style: {
-          size: (d: NodeData) => [Math.max(80, label(d).length * 7 + 24), 28],
-          radius: 6,
-          fill: '#ffffff',
-          stroke: '#3b82f6',
-          lineWidth: 1.5,
-          labelText: label,
-          labelPlacement: 'center',
-          labelFontSize: 12,
+    let graph: Graph | undefined
+    let disposed = false
+    // 描画に失敗したらグラフを片付けてエラーを出す。後片付けの後に届いた失敗は無視する
+    const fail = (e: unknown) => {
+      if (disposed) return
+      disposed = true
+      setError(`Failed to render the graph: ${String(e)}`)
+      graph?.destroy()
+    }
+    try {
+      graph = new Graph({
+        container: containerRef.current,
+        autoFit: 'view',
+        data: toG6(data),
+        node: {
+          type: 'rect',
+          style: {
+            size: (d: NodeData) => [Math.max(80, label(d).length * 7 + 24), 28],
+            radius: 6,
+            fill: '#ffffff',
+            stroke: '#3b82f6',
+            lineWidth: 1.5,
+            labelText: label,
+            labelPlacement: 'center',
+            labelFontSize: 12,
+          },
         },
-      },
-      combo: {
-        type: 'rect',
-        style: {
-          radius: 8,
-          padding: 16,
-          fill: '#3b82f6',
-          fillOpacity: 0.04,
-          stroke: '#93c5fd',
-          labelText: label,
-          labelPlacement: 'top',
-          labelFontWeight: 600,
-          collapsedMarker: true,
+        combo: {
+          type: 'rect',
+          style: {
+            radius: 8,
+            padding: 16,
+            fill: '#3b82f6',
+            fillOpacity: 0.04,
+            stroke: '#93c5fd',
+            labelText: label,
+            labelPlacement: 'top',
+            labelFontWeight: 600,
+            collapsedMarker: true,
+          },
         },
-      },
-      edge: {
-        type: 'cubic-horizontal',
-        style: {
-          stroke: edgeColor,
-          lineDash: (d: EdgeData) => (kinds(d).includes('type-only') ? [4, 4] : [0]),
-          endArrow: true,
+        edge: {
+          type: 'cubic-horizontal',
+          style: {
+            stroke: edgeColor,
+            lineDash: (d: EdgeData) => (kinds(d).includes('type-only') ? [4, 4] : [0]),
+            endArrow: true,
+          },
         },
-      },
-      layout: { type: 'antv-dagre', rankdir: 'LR', nodesep: 10, ranksep: 70, sortByCombo: true },
-      behaviors: [
-        'drag-canvas',
-        'zoom-canvas',
-        'drag-element',
-        { type: 'collapse-expand', trigger: 'dblclick' },
-        { type: 'hover-activate', degree: 1 },
-      ],
-      plugins: [{ type: 'tooltip', getContent: (_: unknown, items: { id: string }[]) => Promise.resolve(items[0]?.id ?? '') }],
-    })
-    graph.render()
-    return () => graph.destroy()
+        layout: { type: 'antv-dagre', rankdir: 'LR', nodesep: 10, ranksep: 70, sortByCombo: true },
+        behaviors: [
+          'drag-canvas',
+          'zoom-canvas',
+          'drag-element',
+          { type: 'collapse-expand', trigger: 'dblclick' },
+          { type: 'hover-activate', degree: 1 },
+        ],
+        plugins: [{ type: 'tooltip', getContent: (_: unknown, items: { id: string }[]) => Promise.resolve(items[0]?.id ?? '') }],
+      })
+      graph.render().catch(fail)
+    } catch (e) {
+      fail(e)
+    }
+    return () => {
+      if (disposed) return
+      disposed = true
+      graph?.destroy()
+    }
   }, [data])
 
   return (
