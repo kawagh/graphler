@@ -13,5 +13,10 @@
   "dependencies": {
     "dependency-cruiser": "^18.4.0",
     "typescript": "~6.0.3"
+  },
+  "devDependencies": {
+    "@graphler/schema": "workspace:*",
+    "@graphler/viewer": "workspace:*",
+    "@types/node": "^24.13.6"
   }
 }
