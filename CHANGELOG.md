@@ -8,6 +8,7 @@
 - feat(cli): --version でバージョンを表示する ([#7](https://github.com/kawagh/graphler/pull/7))
 - chore: Issue と PR のテンプレートを追加する ([#5](https://github.com/kawagh/graphler/pull/5))
 - fix(viewer): グラフの描画に失敗したら画面を真っ白にせずエラーを表示する ([#4](https://github.com/kawagh/graphler/pull/4))
+- chore: taskfile を追加して開発の操作をまとめる ([#14](https://github.com/kawagh/graphler/pull/14))
 
 ## [0.1.0](https://github.com/kawagh/graphler/releases/tag/0.1.0) (2026-09-25)
 
