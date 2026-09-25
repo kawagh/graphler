@@ -1,8 +1,11 @@
 {
   "name": "@graphler/schema",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -10,11 +13,8 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "packageManager": "pnpm@10.20.0",
   "devDependencies": {
     "typescript": "catalog:"
-  }
+  },
+  "packageManager": "pnpm@10.20.0"
 }
