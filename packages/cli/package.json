@@ -1,5 +1,5 @@
 {
-  "name": "graphler",
+  "name": "@kawagh/graphler",
   "version": "0.1.0",
   "description": "Tool to visualize code dependencies as an interactive graph.",
   "keywords": [
@@ -27,6 +27,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=22"
   },

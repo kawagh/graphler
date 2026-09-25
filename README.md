@@ -5,7 +5,7 @@ Tool to visualize code dependencies as an interactive graph.
 ## Usage
 
 ```sh
-npx graphler <dir>
+npx @kawagh/graphler <dir>
 ```
 
 ## Development
