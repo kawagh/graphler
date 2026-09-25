@@ -13,7 +13,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node -e \"require('node:fs').cpSync('../viewer/dist','dist/viewer',{recursive:true})\"",
     "dev": "node src/index.ts"
   },
   "keywords": [],
