@@ -1,6 +1,6 @@
 {
   "name": "@kawagh/graphler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tool to visualize code dependencies as an interactive graph.",
   "keywords": [
     "architecture",

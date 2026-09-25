@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased](https://github.com/kawagh/graphler/compare/0.1.0...HEAD)
+## [0.1.1](https://github.com/kawagh/graphler/compare/0.1.0...0.1.1) (2026-09-25)
 
 - fix(cli): 同じモジュールを複数行で import したときの依存を1本にまとめる ([#2](https://github.com/kawagh/graphler/pull/2))
 - ci: GitHub Actions でビルド・型チェック・リント・テストを実行する ([#11](https://github.com/kawagh/graphler/pull/11))
@@ -9,6 +9,7 @@
 - chore: Issue と PR のテンプレートを追加する ([#5](https://github.com/kawagh/graphler/pull/5))
 - fix(viewer): グラフの描画に失敗したら画面を真っ白にせずエラーを表示する ([#4](https://github.com/kawagh/graphler/pull/4))
 - chore: taskfile を追加して開発の操作をまとめる ([#14](https://github.com/kawagh/graphler/pull/14))
+- build: git-cliff で CHANGELOG.md を生成する ([#16](https://github.com/kawagh/graphler/pull/16))
 
 ## [0.1.0](https://github.com/kawagh/graphler/releases/tag/0.1.0) (2026-09-25)
 
