@@ -23,14 +23,9 @@ task        # タスクの一覧を表示する
 task check  # 書式・リント・型チェック・テストをまとめて実行する
 ```
 
-### CHANGELOG
+## Changelog
 
-[git-cliff](https://git-cliff.org/) generates `CHANGELOG.md` from merged pull requests. Merge pull requests with a merge commit so that they appear in the changelog.
-
-```sh
-pnpm exec git-cliff -o CHANGELOG.md                  # unreleased changes go under "Unreleased"
-pnpm exec git-cliff --tag <version> -o CHANGELOG.md  # on release
-```
+[CHANGELOG.md](./CHANGELOG.md)
 
 ## License
 
