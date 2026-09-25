@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    typescript:
+      specifier: ~6.0.3
+      version: 6.0.3
+
 importers:
 
   .: {}
@@ -14,7 +20,7 @@ importers:
         specifier: ^18.4.0
         version: 18.4.0
       typescript:
-        specifier: ~6.0.3
+        specifier: 'catalog:'
         version: 6.0.3
     devDependencies:
       '@graphler/schema':
@@ -27,7 +33,11 @@ importers:
         specifier: ^24.13.6
         version: 24.13.6
 
-  packages/schema: {}
+  packages/schema:
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
 
   packages/viewer:
     dependencies:
@@ -60,7 +70,7 @@ importers:
         specifier: ^1.81.0
         version: 1.85.0
       typescript:
-        specifier: ~6.0.2
+        specifier: 'catalog:'
         version: 6.0.3
       vite:
         specifier: ^8.3.0

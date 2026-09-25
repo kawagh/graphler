@@ -2,9 +2,18 @@
   "name": "graphler",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "graphler": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +21,7 @@
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
     "dependency-cruiser": "^18.4.0",
-    "typescript": "~6.0.3"
+    "typescript": "catalog:"
   },
   "devDependencies": {
     "@graphler/schema": "workspace:*",
