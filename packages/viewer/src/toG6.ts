@@ -9,8 +9,9 @@ export function toG6(data: GraphlerData): GraphData {
     string,
     { id: string; combo?: string; data: { label: string }; style: { collapsed: boolean } }
   >();
-  // 全モジュールに共通するディレクトリ(src など)の1つ下までを開き、それより深いものは最初は畳んでおく
-  const openDepth = commonDirDepth(data.modules.map((m) => m.path)) + 1;
+  // 全モジュールに共通するディレクトリ(src など)だけを開き、その直下のフォルダから先は最初は畳んでおく。
+  // 全体を見渡してから、見たいフォルダだけを開いていけるようにする
+  const openDepth = commonDirDepth(data.modules.map((m) => m.path));
 
   for (const { path } of data.modules) {
     // ファイル名を除いたディレクトリの各階層を combo にする
