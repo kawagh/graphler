@@ -36,7 +36,8 @@
   "scripts": {
     "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json && node -e \"require('node:fs').cpSync('../viewer/dist','dist/viewer',{recursive:true})\"",
     "dev": "node src/index.ts",
-    "prepack": "pnpm -w run build && node -e \"const fs=require('node:fs');fs.copyFileSync('../../LICENSE','LICENSE');fs.copyFileSync('../../README.md','README.md')\""
+    "prepack": "pnpm -w run build && node -e \"const fs=require('node:fs');fs.copyFileSync('../../LICENSE','LICENSE');fs.copyFileSync('../../README.md','README.md')\"",
+    "test": "node --test \"test/**/*.test.ts\""
   },
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
