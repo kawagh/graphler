@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# graphler --json の出力を開発用に置く
+public/graph.json
