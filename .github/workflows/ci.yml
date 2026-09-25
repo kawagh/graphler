@@ -43,4 +43,4 @@ jobs:
         run: pnpm --filter @graphler/viewer lint
 
       - name: Test
-        run: pnpm --filter @kawagh/graphler test
+        run: pnpm -r test
