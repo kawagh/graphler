@@ -1,81 +1,86 @@
-import { useEffect, useRef, useState } from 'react'
-import { Graph, type EdgeData, type NodeData } from '@antv/g6'
-import type { GraphlerData } from '@graphler/schema'
-import { loadData } from './load'
-import { toG6 } from './toG6'
+import { useEffect, useRef, useState } from "react";
+import { Graph, type EdgeData, type NodeData } from "@antv/g6";
+import type { GraphlerData } from "@graphler/schema";
+import { loadData } from "./load";
+import { toG6 } from "./toG6";
 
-const label = (d: { data?: Record<string, unknown> }) => String(d.data?.label ?? '')
-const kinds = (d: EdgeData) => (d.data?.kinds as string[] | undefined) ?? []
+const label = (d: { data?: Record<string, unknown> }) => String(d.data?.label ?? "");
+const kinds = (d: EdgeData) => (d.data?.kinds as string[] | undefined) ?? [];
 
 function edgeColor(d: EdgeData): string {
-  if (kinds(d).includes('dynamic-import')) return '#f59e0b'
-  if (kinds(d).includes('type-only')) return '#9ca3af'
-  return '#64748b'
+  if (kinds(d).includes("dynamic-import")) return "#f59e0b";
+  if (kinds(d).includes("type-only")) return "#9ca3af";
+  return "#64748b";
 }
 
 export default function App() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [data, setData] = useState<GraphlerData>()
-  const [error, setError] = useState<string>()
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [data, setData] = useState<GraphlerData>();
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
-    loadData().then(setData, (e: unknown) => setError(String(e)))
-  }, [])
+    loadData().then(setData, (e: unknown) => setError(String(e)));
+  }, []);
 
   useEffect(() => {
-    if (!data || !containerRef.current) return
+    if (!data || !containerRef.current) return;
     const graph = new Graph({
       container: containerRef.current,
-      autoFit: 'view',
+      autoFit: "view",
       data: toG6(data),
       node: {
-        type: 'rect',
+        type: "rect",
         style: {
           size: (d: NodeData) => [Math.max(80, label(d).length * 7 + 24), 28],
           radius: 6,
-          fill: '#ffffff',
-          stroke: '#3b82f6',
+          fill: "#ffffff",
+          stroke: "#3b82f6",
           lineWidth: 1.5,
           labelText: label,
-          labelPlacement: 'center',
+          labelPlacement: "center",
           labelFontSize: 12,
         },
       },
       combo: {
-        type: 'rect',
+        type: "rect",
         style: {
           radius: 8,
           padding: 16,
-          fill: '#3b82f6',
+          fill: "#3b82f6",
           fillOpacity: 0.04,
-          stroke: '#93c5fd',
+          stroke: "#93c5fd",
           labelText: label,
-          labelPlacement: 'top',
+          labelPlacement: "top",
           labelFontWeight: 600,
           collapsedMarker: true,
         },
       },
       edge: {
-        type: 'cubic-horizontal',
+        type: "cubic-horizontal",
         style: {
           stroke: edgeColor,
-          lineDash: (d: EdgeData) => (kinds(d).includes('type-only') ? [4, 4] : [0]),
+          lineDash: (d: EdgeData) => (kinds(d).includes("type-only") ? [4, 4] : [0]),
           endArrow: true,
         },
       },
-      layout: { type: 'antv-dagre', rankdir: 'LR', nodesep: 10, ranksep: 70, sortByCombo: true },
+      layout: { type: "antv-dagre", rankdir: "LR", nodesep: 10, ranksep: 70, sortByCombo: true },
       behaviors: [
-        'drag-canvas',
-        'zoom-canvas',
-        'drag-element',
-        { type: 'collapse-expand', trigger: 'dblclick' },
-        { type: 'hover-activate', degree: 1 },
+        "drag-canvas",
+        "zoom-canvas",
+        "drag-element",
+        { type: "collapse-expand", trigger: "dblclick" },
+        { type: "hover-activate", degree: 1 },
       ],
-      plugins: [{ type: 'tooltip', getContent: (_: unknown, items: { id: string }[]) => Promise.resolve(items[0]?.id ?? '') }],
-    })
-    graph.render()
-    return () => graph.destroy()
-  }, [data])
+      plugins: [
+        {
+          type: "tooltip",
+          getContent: (_: unknown, items: { id: string }[]) => Promise.resolve(items[0]?.id ?? ""),
+        },
+      ],
+    });
+    graph.render();
+    return () => graph.destroy();
+  }, [data]);
 
   return (
     <div className="app">
@@ -90,5 +95,5 @@ export default function App() {
       </header>
       {error ? <p className="error">{error}</p> : <div ref={containerRef} className="graph" />}
     </div>
-  )
+  );
 }
